@@ -30,6 +30,8 @@ public slots:
 //    void digit_pressed();
     void EqualsReleased();
     void ShowText();
+    void unaryoperator();
+
 
 
 private:

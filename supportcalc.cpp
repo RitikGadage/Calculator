@@ -1,8 +1,6 @@
-
 #include <stack>
 #include <cmath>
 #include "supportcalc.h"
-using namespace std;
 
 std::string scanNum(int &i,std::string str){
    std::string value;
@@ -14,7 +12,7 @@ std::string scanNum(int &i,std::string str){
 }
 
 //Function to return precedence of operators
-long long prec(char c) {
+int prec(char c) {
     if(c == '^')
         return 3;
     else if(c == '/' || c=='*')
@@ -85,7 +83,7 @@ std::string infixToPostfix(std::string s) {
                 return 1;
              else return 0;
        }
-       long long operation(long long a, long long b, char op){
+       double operation(double a, double b, char op){
              if(op == '+')
                 return b+a;
              else if(op == '-')
@@ -95,15 +93,15 @@ std::string infixToPostfix(std::string s) {
              else if(op == '/')
                 return b/a;
              else if(op == '^')
-                return (long long)pow(b,a);
+                return (double)pow(b,a);
              else
                 return INT_MIN;
        }
 
        //function to return value from postifix expression
-       long long postfixEval(std::string postfix){
-          long long a, b;
-          std::stack<long long> stk;
+       double postfixEval(std::string postfix){
+          double a, b;
+          std::stack<double> stk;
           int i;
           for(i=0; i<postfix.length(); i++){
              if(isOperator(postfix[i]) == 1){
@@ -119,7 +117,7 @@ std::string infixToPostfix(std::string s) {
           return stk.top();
        }
        //final function that get infix expression and evaluate it by convert it to Postfix
-       long long evaluate(std::string str){
+       double evaluate(std::string str){
            std::string temp=infixToPostfix(str);
            return postfixEval(temp);
        }

@@ -1,7 +1,6 @@
 #include "calc.h"
 #include "ui_calc.h"
 #include "supportcalc.h"
-
 #include<QFile>
 #include<math.h>
 #include<QApplication>
@@ -25,17 +24,15 @@ Calc::Calc(QWidget *parent)
     connect(ui->pushButton_9,SIGNAL(released()),this,SLOT(ShowText()));
 
     connect(ui->ChangeSign,SIGNAL(released()),this,SLOT(ShowText()));
-    connect(ui->Reciprocal,SIGNAL(released()),this,SLOT(ShowText()));
-    connect(ui->Square,SIGNAL(released()),this,SLOT(ShowText()));
-    connect(ui->SquareRoot,SIGNAL(released()),this,SLOT(ShowText()));
+    connect(ui->OpenBracket,SIGNAL(released()),this,SLOT(ShowText()));
+    connect(ui->CloseBracket,SIGNAL(released()),this,SLOT(ShowText()));
 
-    connect(ui->Add,SIGNAL(released()),this,SLOT(ShowText()));
-    connect(ui->Subtract,SIGNAL(released()),this,SLOT(ShowText()));
-    connect(ui->Multiply,SIGNAL(released()),this,SLOT(ShowText()));
-    connect(ui->Divide,SIGNAL(released()),this,SLOT(ShowText()));
+
+    connect(ui->Add,SIGNAL(released()),this,SLOT(unaryoperator()));
+    connect(ui->Subtract,SIGNAL(released()),this,SLOT(unaryoperator()));
+    connect(ui->Multiply,SIGNAL(released()),this,SLOT(unaryoperator()));
+    connect(ui->Divide,SIGNAL(released()),this,SLOT(unaryoperator()));
     connect(ui->Equals,SIGNAL(released()),this,SLOT(EqualsReleased()));
-
-
 
 }
 
@@ -49,15 +46,22 @@ void Calc::ShowText()
     QPushButton *button = (QPushButton*)sender();
     QString TextOnScreen = ui->label->text() + button->text();
     ui->label->setText(TextOnScreen);
-    ui->label_2->setText("") ;
+    ui->label_2->setText(ui->label->text()) ;
+}
+
+void Calc::unaryoperator(){
+
+    QPushButton *button=(QPushButton*)sender();
+    ui->label->setText(ui->label->text() +' '+ button->text() +' ');
+    ui->label_2->setText(ui->label->text());
 }
 
 void Calc::EqualsReleased()
 {
-    ShowText();
+
     std::string expression=ui->label->text().toStdString();
     long long result = evaluate  (expression);
-    ui->label_2->setText(QString::number(result,'g',15));
+    ui->label->setText(QString::number(result,'g',15));
 }
 
 

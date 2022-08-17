@@ -8,7 +8,7 @@
 std::string scanNum(int &i,std::string str);
 
 //Function to return precedence of operators
-long long int prec(char c) ;
+int prec(char c) ;
 
 // function to convert infix expression to postfix expression
 std::string infixToPostfix(std::string s) ;
@@ -19,12 +19,12 @@ int isOperator(char ch);
 //function to detect if the char is operand or not
 int isOperand(char ch);
 
-long long operation(long long a, long long b, char op);
+double operation(double a, double b, char op);
 
 //function to return value from postifix expression
-long long postfixEval(std::string postfix);
+double postfixEval(std::string postfix);
 
 //final function that get infix expression and evaluate it by convert it to Postfix
-long long evaluate(std::string str);
+double evaluate(std::string str);
 
 #endif // SUPPORTCALC_H
